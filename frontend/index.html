@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>BLE Device Manager</h1>
+        <div class="tabs">
+            <button id="devicesTabBtn" class="tab-button active">Devices</button>
+            <button id="logsTabBtn" class="tab-button">Connection Logs</button>
+            <button id="configTabBtn" class="tab-button">Configuration</button>
+        </div>
+    </div>
+    
+    <p id="statusMessage"></p>
+
+    <div class="tab-content">
+        <div id="devicesPage" class="page">
+            <div class="panels-container">
+                <div class="left-column">
+                    <div class="panel connected-devices">
+                        <h2>Connected Devices</h2>
+                        <ul id="connectedList"></ul>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="panel blacklisted-devices">
+                        <h2>Blacklisted Devices</h2>
+                        <ul id="blacklistedList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="logsPage" class="page" style="display: none;">
+             <div class="panel">
+                <h2>Connection Log</h2>
+                <ul id="logList"></ul>
+            </div>
+        </div>
+
+        <div id="configPage" class="page" style="display: none;">
+            <div class="panel">
+                <h2>Configuration</h2>
+                <p>Current AC Domain: <span id="currentACDomain">Loading...</span></p>
+                <label for="acDomainInput">AC Domain:</label>
+                <input type="text" id="acDomainInput" placeholder="http://192.168.0.9" value="http://192.168.0.9">
+                <br>
+                <label for="jsonNotifyEndpointInput">JSON Notify Endpoint:</label>
+                <input type="text" id="jsonNotifyEndpointInput" placeholder="https://..." value="https://qa-testing-api-gw.lifesigns.us/api/v1/public/external-device">
+                <br>
+                <label for="devicePrefixes">Device Name Prefixes (comma-separated):</label>
+                <input type="text" id="devicePrefixes" placeholder="FrontierX2,ECG_Belt">
+                <br>
+                <label for="inactivityRules">Inactivity Rules (e.g., ECG_Belt:5,LEPU:10):</label>
+                <input type="text" id="inactivityRules" placeholder="deviceType:minutes,anotherType:minutes">
+                <br>
+                <button id="configureButton">Set Configuration</button>
+                <button id="startButton" title="Services start automatically. Use this to restart them.">Restart Services</button>
+                <button id="stopButton">Stop Services</button>
+            </div>
+            <div class="panel">
+                <h2>Discovered Access Points (Live)</h2>
+                <ul id="apList"><li>Loading...</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Admin Access Required</h2>
+            <p>Enter credentials to access configuration.</p>
+            <input type="text" id="username" value="admin" style="display: none;">
+            <label for="password">Password:</label>
+            <input type="password" id="password">
+            <p id="loginError" class="error-text"></p>
+            <button id="loginButton">Login</button>
+            <button id="cancelLoginButton">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
